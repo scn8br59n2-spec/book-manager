@@ -180,7 +180,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg sm:text-xl text-white tracking-wide">
-                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.7</span>
+                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.8</span>
                     </h1>
                     <p class="text-[10px] text-slate-400">書庫データ＆お店での重複購入防止</p>
                 </div>
@@ -434,7 +434,12 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-400 mb-1">ISBN / JAN (バーコード番号)</label>
-                    <input type="text" id="book-isbn" placeholder="9784......" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-sky-300 font-mono focus:outline-none focus:border-sky-500">
+                    <div class="flex gap-2">
+                        <input type="text" id="book-isbn" onblur="fetchAndFillIsbnInfo()" placeholder="9784......" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-sky-300 font-mono focus:outline-none focus:border-sky-500">
+                        <button type="button" onclick="fetchAndFillIsbnInfo()" class="px-3 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded-xl shrink-0">
+                            検索
+                        </button>
+                    </div>
                 </div>
 
                 <div>
@@ -905,6 +910,18 @@
             return { isbn: cleanIsbn, title: '', publisher: '', genre: '漫画' };
         }
 
+        async function fetchAndFillIsbnInfo() {
+            const isbnInput = $('book-isbn');
+            if (!isbnInput) return;
+            const isbn = isbnInput.value.trim();
+            if (!isbn) return;
+
+            const info = await fetchBookInfoByIsbn(isbn);
+            if (info.title) $('book-title').value = info.title;
+            if (info.publisher) $('book-publisher').value = info.publisher;
+            if (info.genre) $('book-genre').value = info.genre;
+        }
+
         function openAddModal(initialData = {}) {
             $('modal-title').innerText = initialData.id ? '本を編集' : '本を追加';
             $('book-id').value = initialData.id || '';
@@ -970,7 +987,6 @@
 
         async function handleScannedIsbn(isbn) {
             if (scanTargetMode === 'home') {
-                // スキャン後にopenBDから情報を自動取得してモーダルを開く
                 const info = await fetchBookInfoByIsbn(isbn);
                 openAddModal({
                     isbn: info.isbn,
