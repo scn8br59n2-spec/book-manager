@@ -126,7 +126,7 @@
             z-index: 6;
             left: 12px;
             top: 12px;
-            border-radius: 9px;
+            border-radius: 99px;
             background: rgba(15, 23, 42, 0.85);
             color: #38bdf8;
             padding: 6px 10px;
@@ -180,7 +180,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg sm:text-xl text-white tracking-wide">
-                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.5</span>
+                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.7</span>
                     </h1>
                     <p class="text-[10px] text-slate-400">書庫データ＆お店での重複購入防止</p>
                 </div>
@@ -202,54 +202,64 @@
     <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
         <!-- 1. STATS BANNER -->
-        <section class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            <div class="scifi-panel p-3.5 rounded-xl flex items-center gap-3 border-l-4 border-l-sky-500">
-                <div class="p-2.5 bg-sky-950/80 text-sky-400 rounded-lg text-lg">
+        <section class="grid grid-cols-2 sm:grid-cols-6 gap-3">
+            <div class="scifi-panel p-3 rounded-xl flex items-center gap-2.5 border-l-4 border-l-sky-500">
+                <div class="p-2 bg-sky-950/80 text-sky-400 rounded-lg text-base">
                     <i class="fa-solid fa-book"></i>
                 </div>
                 <div>
-                    <div class="text-[11px] text-slate-400 font-bold">総蔵書数</div>
-                    <div id="stat-total" class="text-lg font-black text-white font-mono">0 冊</div>
+                    <div class="text-[10px] text-slate-400 font-bold">総蔵書数</div>
+                    <div id="stat-total" class="text-base font-black text-white font-mono">0 冊</div>
                 </div>
             </div>
 
-            <div class="scifi-panel p-3.5 rounded-xl flex items-center gap-3 border-l-4 border-l-indigo-500">
-                <div class="p-2.5 bg-indigo-950/80 text-indigo-400 rounded-lg text-lg">
+            <div class="scifi-panel p-3 rounded-xl flex items-center gap-2.5 border-l-4 border-l-indigo-500">
+                <div class="p-2 bg-indigo-950/80 text-indigo-400 rounded-lg text-base">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
                 <div>
-                    <div class="text-[11px] text-slate-400 font-bold">漫画</div>
-                    <div id="stat-manga" class="text-lg font-black text-indigo-200 font-mono">0 冊</div>
+                    <div class="text-[10px] text-slate-400 font-bold">漫画</div>
+                    <div id="stat-manga" class="text-base font-black text-indigo-200 font-mono">0 冊</div>
                 </div>
             </div>
 
-            <div class="scifi-panel p-3.5 rounded-xl flex items-center gap-3 border-l-4 border-l-purple-500">
-                <div class="p-2.5 bg-purple-950/80 text-purple-400 rounded-lg text-lg">
+            <div class="scifi-panel p-3 rounded-xl flex items-center gap-2.5 border-l-4 border-l-purple-500">
+                <div class="p-2 bg-purple-950/80 text-purple-400 rounded-lg text-base">
                     <i class="fa-solid fa-bookmark"></i>
                 </div>
                 <div>
-                    <div class="text-[11px] text-slate-400 font-bold">ラノベ</div>
-                    <div id="stat-ranobe" class="text-lg font-black text-purple-200 font-mono">0 冊</div>
+                    <div class="text-[10px] text-slate-400 font-bold">ラノベ</div>
+                    <div id="stat-ranobe" class="text-base font-black text-purple-200 font-mono">0 冊</div>
                 </div>
             </div>
 
-            <div class="scifi-panel p-3.5 rounded-xl flex items-center gap-3 border-l-4 border-l-emerald-500">
-                <div class="p-2.5 bg-emerald-950/80 text-emerald-400 rounded-lg text-lg">
+            <div class="scifi-panel p-3 rounded-xl flex items-center gap-2.5 border-l-4 border-l-emerald-500">
+                <div class="p-2 bg-emerald-950/80 text-emerald-400 rounded-lg text-base">
                     <i class="fa-solid fa-feather"></i>
                 </div>
                 <div>
-                    <div class="text-[11px] text-slate-400 font-bold">小説</div>
-                    <div id="stat-novel" class="text-lg font-black text-emerald-200 font-mono">0 冊</div>
+                    <div class="text-[10px] text-slate-400 font-bold">小説</div>
+                    <div id="stat-novel" class="text-base font-black text-emerald-200 font-mono">0 冊</div>
                 </div>
             </div>
 
-            <div class="scifi-panel p-3.5 rounded-xl flex items-center gap-3 border-l-4 border-l-slate-500 col-span-2 sm:col-span-1">
-                <div class="p-2.5 bg-slate-900 text-slate-400 rounded-lg text-lg">
+            <div class="scifi-panel p-3 rounded-xl flex items-center gap-2.5 border-l-4 border-l-amber-500">
+                <div class="p-2 bg-amber-950/80 text-amber-400 rounded-lg text-base">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold">資料</div>
+                    <div id="stat-doc" class="text-base font-black text-amber-200 font-mono">0 冊</div>
+                </div>
+            </div>
+
+            <div class="scifi-panel p-3 rounded-xl flex items-center gap-2.5 border-l-4 border-l-slate-500 col-span-2 sm:col-span-1">
+                <div class="p-2 bg-slate-900 text-slate-400 rounded-lg text-base">
                     <i class="fa-solid fa-layer-group"></i>
                 </div>
                 <div>
-                    <div class="text-[11px] text-slate-400 font-bold">その他</div>
-                    <div id="stat-other" class="text-lg font-black text-slate-300 font-mono">0 冊</div>
+                    <div class="text-[10px] text-slate-400 font-bold">その他</div>
+                    <div id="stat-other" class="text-base font-black text-slate-300 font-mono">0 冊</div>
                 </div>
             </div>
         </section>
@@ -295,6 +305,7 @@
                             <button onclick="setGenreFilter('漫画')" class="genre-filter-btn px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white" data-genre="漫画">漫画</button>
                             <button onclick="setGenreFilter('ラノベ')" class="genre-filter-btn px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white" data-genre="ラノベ">ラノベ</button>
                             <button onclick="setGenreFilter('小説')" class="genre-filter-btn px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white" data-genre="小説">小説</button>
+                            <button onclick="setGenreFilter('資料')" class="genre-filter-btn px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white" data-genre="資料">資料</button>
                             <button onclick="setGenreFilter('その他')" class="genre-filter-btn px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white" data-genre="その他">その他</button>
                         </div>
 
@@ -437,6 +448,7 @@
                         <option value="漫画">漫画</option>
                         <option value="ラノベ">ラノベ</option>
                         <option value="小説">小説</option>
+                        <option value="資料">資料</option>
                         <option value="その他">その他</option>
                     </select>
                 </div>
@@ -508,7 +520,7 @@
         let stream = null;
         let reader = null;
         let decodeControls = null;
-        let scanState = 'idle'; // 'idle' | 'opening' | 'scanning' | 'success'
+        let scanState = 'idle';
         let busy = false;
         let runId = 0;
         let scriptPromise = null;
@@ -529,12 +541,13 @@
                 camEl.classList.toggle('scanning', scanState === 'scanning');
                 camEl.classList.toggle('success', success);
             }
-            if ($('placeholder'))$('placeholder').hidden = on;
-            if ($('liveTag'))$('liveTag').hidden = !on;
-            if ($('quickResult'))$('quickResult').hidden = !success || !on;
+            if ($('placeholder')) $('placeholder').hidden = on;
+            if ($('liveTag')) $('liveTag').hidden = !on;
+            if ($('quickResult')) $('quickResult').hidden = !success || !on;
             if ($('startBtn')) { $('startBtn').hidden = on; $('startBtn').disabled = busy; }
             if ($('stopBtn')) { $('stopBtn').hidden = !on; $('stopBtn').disabled = busy; }
-            if ($('guideLabel')) {$('guideLabel').textContent = success ? '読み取り成功！' : '本のバーコード（ISBN）を合わせてください';
+            if ($('guideLabel')) {
+                $('guideLabel').textContent = success ? '読み取り成功！' : '本のバーコード（ISBN）を合わせてください';
             }
         }
 
@@ -580,7 +593,7 @@
         function acceptResult(value) {
             if (scanState === 'success') return;
             const code = String(value);
-            if ($('quickCode'))$('quickCode').textContent = code;
+            if ($('quickCode')) $('quickCode').textContent = code;
             scanState = 'success';
             stopDecode();
             updateScannerUI();
@@ -736,6 +749,7 @@
             $('stat-manga').innerText = `${books.filter(b => b.genre === '漫画').length} 冊`;
             $('stat-ranobe').innerText = `${books.filter(b => b.genre === 'ラノベ').length} 冊`;
             $('stat-novel').innerText = `${books.filter(b => b.genre === '小説').length} 冊`;
+            $('stat-doc').innerText = `${books.filter(b => b.genre === '資料').length} 冊`;
             $('stat-other').innerText = `${books.filter(b => b.genre === 'その他').length} 冊`;
         }
 
@@ -797,6 +811,7 @@
                 if (b.genre === '漫画') badgeClass = "bg-indigo-950 text-indigo-300 border border-indigo-700/50";
                 if (b.genre === 'ラノベ') badgeClass = "bg-purple-950 text-purple-300 border border-purple-700/50";
                 if (b.genre === '小説') badgeClass = "bg-emerald-950 text-emerald-300 border border-emerald-700/50";
+                if (b.genre === '資料') badgeClass = "bg-amber-950 text-amber-300 border border-amber-700/50";
 
                 tr.innerHTML = `
                     <td class="p-3 text-center">
@@ -837,6 +852,9 @@
             const t = (title || '').toLowerCase();
             const p = (publisher || '').toLowerCase();
 
+            const docKeywords = ['資料', '設定資料', '画集', 'ファンブック', '公式ガイド', 'コンプリート', '図鑑', 'ムック', 'アーカイブ'];
+            if (docKeywords.some(kw => t.includes(kw) || p.includes(kw))) return '資料';
+
             const ranobeKeywords = [
                 '電撃文庫', 'スニーカー文庫', 'ファンタジア文庫', 'mf文庫j', 'ガガガ文庫', 
                 'オーバーラップ文庫', 'ファミ通文庫', 'hj文庫', 'コミックガルド', 'ダッシュエックス文庫',
@@ -856,24 +874,34 @@
             return '漫画';
         }
 
+        // --- OPENBD API WITH RELIABLE FALLBACK & PARSING ---
         async function fetchBookInfoByIsbn(isbn) {
             const cleanIsbn = isbn.replace(/-/g, '').trim();
+            if (!cleanIsbn) return { isbn: '', title: '', publisher: '', genre: '漫画' };
+
             try {
                 const res = await fetch(`https://api.openbd.jp/v1/get?isbn=${cleanIsbn}`);
+                if (!res.ok) throw new Error('API Response Error');
+                
                 const data = await res.json();
                 if (data && data[0] && data[0].summary) {
                     const sum = data[0].summary;
                     const cCode = data[0].onix?.DescriptiveDetail?.Subject?.[0]?.SubjectCode || '';
-                    const inferredGenre = inferGenreFromBookData(sum.title, sum.publisher, cCode);
+                    
+                    const title = sum.title ? (sum.title + (sum.volume ? ` ${sum.volume}` : '')) : '';
+                    const publisher = sum.publisher || '';
+                    const inferredGenre = inferGenreFromBookData(title, publisher, cCode);
 
                     return {
                         isbn: cleanIsbn,
-                        title: sum.title + (sum.volume ? ` ${sum.volume}` : ''),
-                        publisher: sum.publisher || '',
+                        title: title,
+                        publisher: publisher,
                         genre: inferredGenre
                     };
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.warn('openBD API Lookup error:', e);
+            }
             return { isbn: cleanIsbn, title: '', publisher: '', genre: '漫画' };
         }
 
@@ -942,6 +970,7 @@
 
         async function handleScannedIsbn(isbn) {
             if (scanTargetMode === 'home') {
+                // スキャン後にopenBDから情報を自動取得してモーダルを開く
                 const info = await fetchBookInfoByIsbn(isbn);
                 openAddModal({
                     isbn: info.isbn,
