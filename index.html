@@ -180,7 +180,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg sm:text-xl text-white tracking-wide">
-                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.8</span>
+                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.9</span>
                     </h1>
                     <p class="text-[10px] text-slate-400">書庫データ＆お店での重複購入防止</p>
                 </div>
@@ -294,9 +294,24 @@
 
                 <!-- FILTER BAR -->
                 <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
-                    <div class="relative w-full md:w-72">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
-                        <input type="text" id="search-input" oninput="renderBookList()" placeholder="タイトル・出版社・ISBN検索..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500">
+                    <div class="flex flex-wrap gap-2 items-center w-full md:w-auto">
+                        <div class="relative w-full sm:w-64">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                            <input type="text" id="search-input" oninput="renderBookList()" placeholder="タイトル・出版社・ISBN検索..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500">
+                        </div>
+
+                        <!-- SORT SELECT -->
+                        <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-slate-300 w-full sm:w-auto">
+                            <i class="fa-solid fa-arrow-down-wide-short text-sky-400"></i>
+                            <select id="sort-select" onchange="renderBookList()" class="bg-transparent text-white focus:outline-none cursor-pointer text-xs font-bold">
+                                <option value="created_desc" class="bg-slate-900">登録日 (新しい順)</option>
+                                <option value="created_asc" class="bg-slate-900">登録日 (古い順)</option>
+                                <option value="title_asc" class="bg-slate-900">タイトル (昇順 50音)</option>
+                                <option value="title_desc" class="bg-slate-900">タイトル (降順)</option>
+                                <option value="publisher_asc" class="bg-slate-900">出版社 (昇順)</option>
+                                <option value="isbn_asc" class="bg-slate-900">ISBN (昇順)</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="flex flex-wrap gap-2 items-center w-full md:w-auto justify-between md:justify-end">
@@ -791,8 +806,9 @@
             tbody.innerHTML = '';
 
             const searchQ = ($('search-input')?.value || '').toLowerCase().trim();
+            const sortMode = $('sort-select')?.value || 'created_desc';
 
-            const filtered = books.filter(b => {
+            let filtered = books.filter(b => {
                 const matchesGenre = (currentGenreFilter === 'ALL') || (b.genre === currentGenreFilter);
                 const matchesFav = !filterOnlyFavorite || b.favorite;
                 const matchesSearch = !searchQ || 
@@ -801,6 +817,24 @@
                     (b.isbn || '').includes(searchQ);
 
                 return matchesGenre && matchesFav && matchesSearch;
+            });
+
+            // --- SORT LOGIC ---
+            filtered.sort((a, b) => {
+                if (sortMode === 'created_desc') {
+                    return (b.id || 0) - (a.id || 0);
+                } else if (sortMode === 'created_asc') {
+                    return (a.id || 0) - (b.id || 0);
+                } else if (sortMode === 'title_asc') {
+                    return (a.title || '').localeCompare(b.title || '', 'ja');
+                } else if (sortMode === 'title_desc') {
+                    return (b.title || '').localeCompare(a.title || '', 'ja');
+                } else if (sortMode === 'publisher_asc') {
+                    return (a.publisher || '').localeCompare(b.publisher || '', 'ja');
+                } else if (sortMode === 'isbn_asc') {
+                    return (a.isbn || '').localeCompare(b.isbn || '');
+                }
+                return 0;
             });
 
             if (filtered.length === 0) {
