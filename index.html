@@ -180,7 +180,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg sm:text-xl text-white tracking-wide">
-                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v2.9</span>
+                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v3.0</span>
                     </h1>
                     <p class="text-[10px] text-slate-400">書庫データ＆お店での重複購入防止</p>
                 </div>
@@ -292,24 +292,26 @@
                     </div>
                 </div>
 
-                <!-- FILTER BAR -->
+                <!-- FILTER & SORT BAR -->
                 <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
                     <div class="flex flex-wrap gap-2 items-center w-full md:w-auto">
-                        <div class="relative w-full sm:w-64">
+                        <!-- SEARCH INPUT -->
+                        <div class="relative w-full sm:w-60">
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
                             <input type="text" id="search-input" oninput="renderBookList()" placeholder="タイトル・出版社・ISBN検索..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500">
                         </div>
 
-                        <!-- SORT SELECT -->
-                        <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-slate-300 w-full sm:w-auto">
+                        <!-- SORT SELECT (VISIBILITY IMPROVED) -->
+                        <div class="flex items-center gap-1.5 bg-slate-950 border-2 border-sky-500/60 rounded-xl px-2.5 py-1 text-xs text-slate-200 w-full sm:w-auto shadow-sm">
                             <i class="fa-solid fa-arrow-down-wide-short text-sky-400"></i>
-                            <select id="sort-select" onchange="renderBookList()" class="bg-transparent text-white focus:outline-none cursor-pointer text-xs font-bold">
-                                <option value="created_desc" class="bg-slate-900">登録日 (新しい順)</option>
-                                <option value="created_asc" class="bg-slate-900">登録日 (古い順)</option>
-                                <option value="title_asc" class="bg-slate-900">タイトル (昇順 50音)</option>
-                                <option value="title_desc" class="bg-slate-900">タイトル (降順)</option>
-                                <option value="publisher_asc" class="bg-slate-900">出版社 (昇順)</option>
-                                <option value="isbn_asc" class="bg-slate-900">ISBN (昇順)</option>
+                            <span class="text-[11px] font-bold text-slate-400 shrink-0">並べ替え:</span>
+                            <select id="sort-select" onchange="renderBookList()" class="bg-transparent text-sky-300 focus:outline-none cursor-pointer text-xs font-bold w-full sm:w-auto py-0.5">
+                                <option value="created_desc" class="bg-slate-900 text-white">登録日 (新しい順)</option>
+                                <option value="created_asc" class="bg-slate-900 text-white">登録日 (古い順)</option>
+                                <option value="title_asc" class="bg-slate-900 text-white">タイトル (50音・昇順)</option>
+                                <option value="title_desc" class="bg-slate-900 text-white">タイトル (50音・降順)</option>
+                                <option value="publisher_asc" class="bg-slate-900 text-white">出版社 (昇順)</option>
+                                <option value="isbn_asc" class="bg-slate-900 text-white">ISBN (昇順)</option>
                             </select>
                         </div>
                     </div>
@@ -821,10 +823,13 @@
 
             // --- SORT LOGIC ---
             filtered.sort((a, b) => {
+                const valA = parseFloat(a.id) || 0;
+                const valB = parseFloat(b.id) || 0;
+
                 if (sortMode === 'created_desc') {
-                    return (b.id || 0) - (a.id || 0);
+                    return valB - valA;
                 } else if (sortMode === 'created_asc') {
-                    return (a.id || 0) - (b.id || 0);
+                    return valA - valB;
                 } else if (sortMode === 'title_asc') {
                     return (a.title || '').localeCompare(b.title || '', 'ja');
                 } else if (sortMode === 'title_desc') {
