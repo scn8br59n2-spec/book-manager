@@ -180,7 +180,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg sm:text-xl text-white tracking-wide">
-                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v3.0</span>
+                        蔵書管理アプリ <span class="text-xs text-sky-400 font-mono">v3.1</span>
                     </h1>
                     <p class="text-[10px] text-slate-400">書庫データ＆お店での重複購入防止</p>
                 </div>
@@ -301,7 +301,7 @@
                             <input type="text" id="search-input" oninput="renderBookList()" placeholder="タイトル・出版社・ISBN検索..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500">
                         </div>
 
-                        <!-- SORT SELECT (VISIBILITY IMPROVED) -->
+                        <!-- SORT SELECT -->
                         <div class="flex items-center gap-1.5 bg-slate-950 border-2 border-sky-500/60 rounded-xl px-2.5 py-1 text-xs text-slate-200 w-full sm:w-auto shadow-sm">
                             <i class="fa-solid fa-arrow-down-wide-short text-sky-400"></i>
                             <span class="text-[11px] font-bold text-slate-400 shrink-0">並べ替え:</span>
@@ -821,7 +821,7 @@
                 return matchesGenre && matchesFav && matchesSearch;
             });
 
-            // --- SORT LOGIC ---
+            // --- SORT LOGIC (NATURAL NUMERIC ORDER) ---
             filtered.sort((a, b) => {
                 const valA = parseFloat(a.id) || 0;
                 const valB = parseFloat(b.id) || 0;
@@ -831,11 +831,11 @@
                 } else if (sortMode === 'created_asc') {
                     return valA - valB;
                 } else if (sortMode === 'title_asc') {
-                    return (a.title || '').localeCompare(b.title || '', 'ja');
+                    return (a.title || '').localeCompare(b.title || '', 'ja', { numeric: true, sensitivity: 'base' });
                 } else if (sortMode === 'title_desc') {
-                    return (b.title || '').localeCompare(a.title || '', 'ja');
+                    return (b.title || '').localeCompare(a.title || '', 'ja', { numeric: true, sensitivity: 'base' });
                 } else if (sortMode === 'publisher_asc') {
-                    return (a.publisher || '').localeCompare(b.publisher || '', 'ja');
+                    return (a.publisher || '').localeCompare(b.publisher || '', 'ja', { numeric: true, sensitivity: 'base' });
                 } else if (sortMode === 'isbn_asc') {
                     return (a.isbn || '').localeCompare(b.isbn || '');
                 }
